@@ -12,7 +12,9 @@ class NutritionAnalysisService:
 
     def get_warnings(self, nutrition: ParsedNutritionResult) -> List[NutritionWarning]:
         warnings: List[NutritionWarning] = [
-            checks.check_sodium(nutrition)
+            checks.check_sodium(nutrition),
+            checks.check_sugar(nutrition),
+            checks.check_fiber(nutrition)
         ]
         warnings = list(filter(lambda warning: warning is not None, warnings))
         return warnings
