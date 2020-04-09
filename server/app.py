@@ -2,8 +2,8 @@ from flask import Flask, g
 from flask_restful import Api
 
 from server.health.endpoint import Health, HealthGAE
-from server.parse_nutrition.image_endpoint import ProcessImageEndpoint
-from server.parse_nutrition.text_endpoint import ProcessTextEndpoint
+from server.api.image_endpoint import ProcessImageEndpoint
+from server.api.text_endpoint import ProcessTextEndpoint
 from server.services import AppServiceSingleton
 
 # TODO: config
