@@ -1,6 +1,6 @@
 from typing import Dict, List
 
-from ingredients.analysis.models import AnalyzedAdditive
+from ingredients.analysis.models import AnalyzedIngredient
 from ingredients.parser.models import ParsedIngredientsResult
 from nutrition_analysis_service.models import NutritionWarning
 from nutrition_parser.models import ParsedNutritionResult
@@ -49,7 +49,7 @@ class IngredientsAnalysisResponse:
 
     def __init__(self,
                  parsed_ingredients: ParsedIngredientsResult,
-                 analyzed_additives: List[AnalyzedAdditive]):
+                 analyzed_additives: List[AnalyzedIngredient]):
         self.parsed_ingredients = parsed_ingredients
         self.analyzed_additives = analyzed_additives
 

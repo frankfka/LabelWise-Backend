@@ -14,7 +14,9 @@ class NutritionAnalysisService:
         warnings: List[NutritionWarning] = [
             checks.check_sodium(nutrition),
             checks.check_sugar(nutrition),
-            checks.check_fiber(nutrition)
+            checks.check_fiber(nutrition),
+            checks.check_sat_fat(nutrition),
+            checks.check_cholesterol(nutrition)
         ]
         warnings = list(filter(lambda warning: warning is not None, warnings))
         return warnings

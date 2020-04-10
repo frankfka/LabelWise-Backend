@@ -8,7 +8,7 @@ from server.services import AppServiceSingleton
 
 # TODO: config
 CRED_FILEPATH = "../assets/credentials.json"
-ADDITIVES_DB_FILEPATH = "../assets/additives_db/additives.json"
+ADDITIVES_DB_FILEPATH = "../assets/ingredients_db/additives.json"
 
 
 def create_app():

@@ -36,14 +36,24 @@ def check_fiber(nutrition: ParsedNutritionResult) -> Optional[NutritionWarning]:
         result = NutritionWarning(code=NutritionWarningCode.LOW_FIBER, level=NutritionWarning.Level.CAUTION)
     return result
 
-# TODO
-def check_trans_fats(nutrition: ParsedNutritionResult) -> Optional[NutritionWarning]:
-    return None
-
 
 def check_sat_fat(nutrition: ParsedNutritionResult) -> Optional[NutritionWarning]:
-    return None
+    result = None
+    if nutrition.saturated_fat is None:
+        pass
+    elif nutrition.saturated_fat > 10:
+        result = NutritionWarning(code=NutritionWarningCode.HIGH_SAT_FAT, level=NutritionWarning.Level.SEVERE)
+    elif nutrition.saturated_fat > 5:
+        result = NutritionWarning(code=NutritionWarningCode.HIGH_SAT_FAT, level=NutritionWarning.Level.CAUTION)
+    return result
 
 
 def check_cholesterol(nutrition: ParsedNutritionResult) -> Optional[NutritionWarning]:
-    return None
+    result = None
+    if nutrition.cholesterol is None:
+        pass
+    elif nutrition.cholesterol > 200:
+        result = NutritionWarning(code=NutritionWarningCode.HIGH_CHOLESTEROL, level=NutritionWarning.Level.SEVERE)
+    elif nutrition.cholesterol > 100:
+        result = NutritionWarning(code=NutritionWarningCode.HIGH_CHOLESTEROL, level=NutritionWarning.Level.CAUTION)
+    return result
