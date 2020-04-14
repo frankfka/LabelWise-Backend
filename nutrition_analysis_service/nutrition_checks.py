@@ -30,7 +30,7 @@ def check_sugar(nutrition: ParsedNutritionResult) -> Optional[NutritionWarning]:
 
 def check_fiber(nutrition: ParsedNutritionResult) -> Optional[NutritionWarning]:
     result = None
-    if nutrition.carbohydrates is None or nutrition.fiber is None:
+    if nutrition.carbohydrates is None or not nutrition.fiber:
         pass
     elif nutrition.carbohydrates > 10 and nutrition.carbohydrates / nutrition.fiber > 5:
         result = NutritionWarning(code=NutritionWarningCode.LOW_FIBER, level=NutritionWarning.Level.CAUTION)

@@ -14,4 +14,4 @@ automatic_scaling:
   min_instances: 0
   max_instances: 1
 # Gunicorn command to start server
-entrypoint: gunicorn -b :$PORT -w 1 'server.app:create_app()'
+entrypoint: gunicorn -b :$PORT -w 1 'app:create_app()'

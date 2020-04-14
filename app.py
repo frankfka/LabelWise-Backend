@@ -1,15 +1,11 @@
 from flask import Flask, g
 from flask_restful import Api
 
+from config import VISION_CREDIENTIALS_FILEPATH, INGREDIENTS_DB_FILEPATH
 from server.health.endpoint import Health, HealthGAE
 from server.api.image_endpoint import ProcessImageEndpoint
 from server.api.text_endpoint import ProcessTextEndpoint
 from server.services import AppServiceSingleton
-
-# TODO: config
-CRED_FILEPATH = "../assets/credentials.json"
-ADDITIVES_DB_FILEPATH = "../assets/ingredients_db/additives.json"
-
 
 def create_app():
     def add_endpoints():
@@ -32,7 +28,7 @@ def create_app():
         """
         This populates the global context object with the required services
         """
-        g.services = AppServiceSingleton(CRED_FILEPATH, ADDITIVES_DB_FILEPATH)
+        g.services = AppServiceSingleton(VISION_CREDIENTIALS_FILEPATH, INGREDIENTS_DB_FILEPATH)
 
     return app
 
