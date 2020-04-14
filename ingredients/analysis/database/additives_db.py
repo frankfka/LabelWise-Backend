@@ -4,6 +4,9 @@ import re
 from typing import List, Optional
 
 from ingredients.analysis.database.models import AdditiveInfo
+from utils.logging_util import get_logger
+
+logger = get_logger("AdditivesDatabase")
 
 
 def __clean_for_comparison__(text: str):
@@ -31,9 +34,7 @@ class AdditivesDatabase:
             with open(os.path.join(data_dir, "sugar_synonyms.json"), "r") as f:
                 sugar_synonyms = json.load(f)
         except Exception as e:
-            # TODO: correct error logging
-            print("Error creating additives database")
-            print(e)
+            logger.error("Error creating additives database", exc_info=True)
         self.all_additives: List[AdditiveInfo] = all_additives
         self.sugar_synonyms: List[str] = [__clean_for_comparison__(term) for term in sugar_synonyms]
 

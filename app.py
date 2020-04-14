@@ -7,6 +7,7 @@ from server.api.image_endpoint import ProcessImageEndpoint
 from server.api.text_endpoint import ProcessTextEndpoint
 from server.services import AppServiceSingleton
 
+
 def create_app():
     def add_endpoints():
         # Warm Up for Google App Engine
