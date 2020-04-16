@@ -41,7 +41,7 @@ if __name__ == '__main__':
         with io.open(path, 'r') as f:
             return f.read()
 
-    text = get_text("/Users/frankjia/Desktop/Programming/LabelWise-Backend/test_assets/parsed_nutrition/nutrition_9.txt")
+    text = get_text("/Users/frankjia/Desktop/Programming/LabelWise-Backend/test_assets/parsed_nutrition/nutrition_1.txt")
     service = NutritionalDetailParser()
     parse_result = service.parse(text)
     print(parse_result.to_dict())

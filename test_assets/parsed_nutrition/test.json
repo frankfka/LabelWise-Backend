@@ -1,0 +1,16 @@
+[
+  {
+    "file": "nutrition_1.txt",
+    "actual": {
+      "calories": 150.0,
+      "carbohydrates": 27.0,
+      "sugar": 20.0,
+      "fiber": 0.0,
+      "protein": 6.0,
+      "fat": 2.0,
+      "saturated_fat": 1.0,
+      "cholesterol": 10.0,
+      "sodium": 85.0
+    }
+  }
+]

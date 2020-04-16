@@ -1,7 +1,7 @@
 from flask import Flask, g
 from flask_restful import Api
 
-from config import VISION_CREDIENTIALS_FILEPATH, INGREDIENTS_DB_FILEPATH
+from config import AppConfig
 from server.health.endpoint import Health, HealthGAE
 from server.api.image_endpoint import ProcessImageEndpoint
 from server.api.text_endpoint import ProcessTextEndpoint
@@ -20,6 +20,7 @@ def create_app():
         api.add_resource(ProcessTextEndpoint, '/nutrition/text')
 
     # TODO: Look into parallelism: https://medium.com/@dkhd/handling-multiple-requests-on-flask-60208eacc154
+    config = AppConfig()
     app = Flask(__name__)
     api = Api(app)
     add_endpoints()
@@ -29,7 +30,7 @@ def create_app():
         """
         This populates the global context object with the required services
         """
-        g.services = AppServiceSingleton(VISION_CREDIENTIALS_FILEPATH, INGREDIENTS_DB_FILEPATH)
+        g.services = AppServiceSingleton(config.vision_cred_filepath, config.ingredients_db_dirpath)
 
     return app
 

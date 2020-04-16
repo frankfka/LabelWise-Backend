@@ -31,3 +31,17 @@ class ParsedNutritionResult:
             "cholesterol": self.cholesterol,
             "sodium": self.sodium
         }
+
+    @classmethod
+    def from_dict(cls, data):
+        item = ParsedNutritionResult("")
+        item.calories = data["calories"]
+        item.carbohydrates = data["carbohydrates"]
+        item.sugar = data["sugar"]
+        item.fiber = data["fiber"]
+        item.protein = data["protein"]
+        item.fat = data["fat"]
+        item.saturated_fat = data["saturated_fat"]
+        item.cholesterol = data["cholesterol"]
+        item.sodium = data["sodium"]
+        return item
