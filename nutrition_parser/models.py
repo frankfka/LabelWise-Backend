@@ -1,3 +1,4 @@
+import inspect
 from typing import Optional, Dict
 
 
@@ -18,6 +19,13 @@ class ParsedNutritionResult:
         self.cholesterol: Optional[float] = None
 
         self.sodium: Optional[float] = None  # milligrams
+
+    def did_parse_all(self):
+        """
+        Determines whether all properties were parsed successfully
+        """
+        attr_vals = [val for val in self.to_dict().values()]
+        return None not in attr_vals
 
     def to_dict(self) -> Dict:
         return {

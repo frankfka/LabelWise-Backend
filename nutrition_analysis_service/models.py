@@ -11,7 +11,6 @@ class NutritionWarningCode(Enum):
 
 class NutritionWarning:
     class Level(IntEnum):
-        NONE = 0
         CAUTION = 1
         SEVERE = 2
 

@@ -1,3 +1,4 @@
+from nutrition_parser.models import ParsedNutritionResult
 from server.models import NutritionAnalysisResponse, IngredientsAnalysisResponse, ErrorResponse, TYPE_NUTRITION, \
     TYPE_INGREDIENTS
 from server.services import AppServices
@@ -20,11 +21,27 @@ def analyze(text: str, type: str, services: AppServices) -> (dict, int):
 def __analyze_nutrition__(text: str, services: AppServices) -> (dict, int):
     parse_result = services.nutrition_parser.parse(text)
     warnings = services.nutrition_analyzer.get_warnings(parse_result)
+    # Determine the status
+    status = __get_analyze_nutrition_status__(parse_result)
     response = NutritionAnalysisResponse(
+        status=status,
         parsed_nutrition=parse_result,
         warnings=warnings
     )
     return response.to_dict(), 200
+
+
+def __get_analyze_nutrition_status__(parse_result: ParsedNutritionResult) -> NutritionAnalysisResponse.Status:
+    if parse_result.calories is None or parse_result.carbohydrates is None \
+            or parse_result.protein is None or parse_result.fat is None:
+        # Insufficient if we can't parse any macros
+        return NutritionAnalysisResponse.Status.INSUFFICIENT
+
+    # Determine whether we have parsed all properties
+    if parse_result.did_parse_all():
+        return NutritionAnalysisResponse.Status.SUCCESS
+    else:
+        return NutritionAnalysisResponse.Status.INCOMPLETE
 
 
 def __analyze_ingredients__(text: str, services: AppServices) -> (dict, int):

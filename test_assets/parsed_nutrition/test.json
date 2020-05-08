@@ -12,5 +12,47 @@
       "cholesterol": 10.0,
       "sodium": 85.0
     }
+  },
+  {
+    "file": "nutrition_2.txt",
+    "actual": {
+      "calories": 185.0,
+      "carbohydrates": 7.0,
+      "sugar": 2.0,
+      "fiber": 3.0,
+      "protein": 8.0,
+      "fat": 16.0,
+      "saturated_fat": 2.0,
+      "cholesterol": 0.0,
+      "sodium": 0.0
+    }
+  },
+  {
+    "file": "nutrition_9.txt",
+    "actual": {
+      "calories": 160.0,
+      "carbohydrates": 21.0,
+      "sugar": 9.0,
+      "fiber": 2.0,
+      "protein": 3.0,
+      "fat": 7.0,
+      "saturated_fat": 2.0,
+      "cholesterol": 15.0,
+      "sodium": 2550.0
+    }
+  },
+  {
+    "file": "unrelated.txt",
+    "actual": {
+      "calories": null,
+      "carbohydrates": null,
+      "sugar": null,
+      "fiber": null,
+      "protein": null,
+      "fat": null,
+      "saturated_fat": null,
+      "cholesterol": null,
+      "sodium": null
+    }
   }
 ]

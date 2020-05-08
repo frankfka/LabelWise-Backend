@@ -38,9 +38,11 @@ class TestNutritionParserService:
         Test all tests defined in test.json under parsed_nutrition
         """
         parse_nutrition_assets_root = os.path.join(config.test_assets_dir, "parsed_nutrition")
+        # Get json file that contains all the tests
         nutrition_test_json_filepath = os.path.join(parse_nutrition_assets_root, "test.json")
         with open(nutrition_test_json_filepath, "r") as f:
             tests = json.load(f)
+        # Test each object
         for test_data in tests:
             self.__test_one(test_data, parse_nutrition_assets_root)
 

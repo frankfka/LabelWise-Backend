@@ -1,3 +1,4 @@
+from enum import Enum
 from typing import Dict, List
 
 from ingredients.analysis.models import AnalyzedIngredient
@@ -28,15 +29,22 @@ class NutritionAnalysisResponse:
     """
     Standardized response for nutrition analysis and parsing
     """
+    class Status(Enum):
+        SUCCESS = "SUCCESS"
+        INCOMPLETE = "INCOMPLETE"
+        INSUFFICIENT = "INSUFFICIENT"
 
     def __init__(self,
+                 status: Status,
                  parsed_nutrition: ParsedNutritionResult,
                  warnings: List[NutritionWarning]):
+        self.status = status
         self.parsed_nutrition = parsed_nutrition
         self.warnings = warnings
 
     def to_dict(self) -> dict:
         return {
+            "status": self.status.value,
             "parsed_nutrition": self.parsed_nutrition.to_dict(),
             "warnings": [warning.to_dict() for warning in self.warnings]
         }
