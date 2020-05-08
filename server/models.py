@@ -30,7 +30,7 @@ class NutritionAnalysisResponse:
     Standardized response for nutrition analysis and parsing
     """
     class Status(Enum):
-        SUCCESS = "SUCCESS"
+        COMPLETE = "COMPLETE"
         INCOMPLETE = "INCOMPLETE"
         INSUFFICIENT = "INSUFFICIENT"
 

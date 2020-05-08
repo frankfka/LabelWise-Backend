@@ -39,7 +39,7 @@ def __get_analyze_nutrition_status__(parse_result: ParsedNutritionResult) -> Nut
 
     # Determine whether we have parsed all properties
     if parse_result.did_parse_all():
-        return NutritionAnalysisResponse.Status.SUCCESS
+        return NutritionAnalysisResponse.Status.COMPLETE
     else:
         return NutritionAnalysisResponse.Status.INCOMPLETE
 

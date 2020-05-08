@@ -47,6 +47,7 @@ class TestNutritionParserService:
             self.__test_one(test_data, parse_nutrition_assets_root)
 
     def __test_one(self, test_data: dict, root_path):
+        # TODO: Test the status and warning codes
         with open(os.path.join(root_path, test_data["file"]), "r") as f:
             ocr_text = f.read()
         parsed = nutrition_parser_service.parse(ocr_text)
