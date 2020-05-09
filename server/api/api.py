@@ -20,13 +20,13 @@ def analyze(text: str, type: str, services: AppServices) -> (dict, int):
 
 def __analyze_nutrition__(text: str, services: AppServices) -> (dict, int):
     parse_result = services.nutrition_parser.parse(text)
-    warnings = services.nutrition_analyzer.get_warnings(parse_result)
+    insights = services.nutrition_analyzer.get_insights(parse_result)
     # Determine the status
     status = __get_analyze_nutrition_status__(parse_result)
     response = NutritionAnalysisResponse(
         status=status,
         parsed_nutrition=parse_result,
-        warnings=warnings
+        insights=insights
     )
     return response.to_dict(), 200
 

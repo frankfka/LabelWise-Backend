@@ -3,7 +3,7 @@ from typing import Dict, List
 
 from ingredients.analysis.models import AnalyzedIngredient
 from ingredients.parser.models import ParsedIngredientsResult
-from nutrition_analysis_service.models import NutritionWarning
+from nutrition_analysis_service.models import NutritionInsight
 from nutrition_parser.models import ParsedNutritionResult
 
 # Analysis types
@@ -37,16 +37,16 @@ class NutritionAnalysisResponse:
     def __init__(self,
                  status: Status,
                  parsed_nutrition: ParsedNutritionResult,
-                 warnings: List[NutritionWarning]):
+                 insights: List[NutritionInsight]):
         self.status = status
         self.parsed_nutrition = parsed_nutrition
-        self.warnings = warnings
+        self.insights = insights
 
     def to_dict(self) -> dict:
         return {
             "status": self.status.value,
             "parsed_nutrition": self.parsed_nutrition.to_dict(),
-            "warnings": [warning.to_dict() for warning in self.warnings]
+            "insights": [insight.to_dict() for insight in self.insights]
         }
 
 
