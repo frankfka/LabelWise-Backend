@@ -16,7 +16,8 @@ class NutritionAnalysisService:
             checks.check_sugar(nutrition),
             checks.check_fiber(nutrition),
             checks.check_sat_fat(nutrition),
-            checks.check_cholesterol(nutrition)
+            checks.check_cholesterol(nutrition),
+            checks.check_protein(nutrition)
         ]
         insights = list(filter(lambda insight: insight is not None, insights))
         return insights

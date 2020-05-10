@@ -43,13 +43,13 @@ class ParsedNutritionResult:
     @classmethod
     def from_dict(cls, data):
         item = ParsedNutritionResult("")
-        item.calories = data["calories"]
-        item.carbohydrates = data["carbohydrates"]
-        item.sugar = data["sugar"]
-        item.fiber = data["fiber"]
-        item.protein = data["protein"]
-        item.fat = data["fat"]
-        item.saturated_fat = data["saturated_fat"]
-        item.cholesterol = data["cholesterol"]
-        item.sodium = data["sodium"]
+        item.calories = data.get("calories", None)
+        item.carbohydrates = data.get("carbohydrates", None)
+        item.sugar = data.get("sugar", None)
+        item.fiber = data.get("fiber", None)
+        item.protein = data.get("protein", None)
+        item.fat = data.get("fat", None)
+        item.saturated_fat = data.get("saturated_fat", None)
+        item.cholesterol = data.get("cholesterol", None)
+        item.sodium = data.get("sodium", None)
         return item

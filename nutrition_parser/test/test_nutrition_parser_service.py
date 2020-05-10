@@ -1,3 +1,4 @@
+import inspect
 import json
 import os
 
@@ -35,11 +36,12 @@ class TestNutritionParserService:
 
     def test_all(self):
         """
-        Test all tests defined in test.json under parsed_nutrition
+        Test all tests defined in test.json
         """
         parse_nutrition_assets_root = os.path.join(config.test_assets_dir, "parsed_nutrition")
         # Get json file that contains all the tests
-        nutrition_test_json_filepath = os.path.join(parse_nutrition_assets_root, "test.json")
+        curr_dir = os.path.dirname(inspect.getfile(TestNutritionParserService))
+        nutrition_test_json_filepath = os.path.join(curr_dir, "test.json")
         with open(nutrition_test_json_filepath, "r") as f:
             tests = json.load(f)
         # Test each object
@@ -47,7 +49,6 @@ class TestNutritionParserService:
             self.__test_one(test_data, parse_nutrition_assets_root)
 
     def __test_one(self, test_data: dict, root_path):
-        # TODO: Test the status and warning codes
         with open(os.path.join(root_path, test_data["file"]), "r") as f:
             ocr_text = f.read()
         parsed = nutrition_parser_service.parse(ocr_text)

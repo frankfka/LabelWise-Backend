@@ -1,0 +1,14 @@
+[
+  {
+    "description": "Check Sodium - Severe Warning > 800mg",
+    "nutrition": {
+      "sodium": 801.0
+    },
+    "insights": [
+      {
+        "code": "HIGH_SODIUM",
+        "type": -2
+      }
+    ]
+  }
+]
