@@ -38,7 +38,7 @@ class ProcessImageEndpoint(Resource):
         """
         Return (req_type, b64_img), or None if we are missing any inputs
         """
-        args = self.req_parser.parse_args()  # Not using strict to allow for key arg
+        args = self.req_parser.parse_args(strict=True)
         req_type = args.get(ProcessImageEndpoint.TYPE_ARG, None)
         b64_img = args.get(ProcessImageEndpoint.IMAGE_ARG, None)
         # Check we have correct input

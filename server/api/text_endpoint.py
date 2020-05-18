@@ -34,7 +34,7 @@ class ProcessTextEndpoint(Resource):
         """
         Return (req_type, text), or None if we are missing any inputs
         """
-        args = self.req_parser.parse_args()  # Not using strict to allow for key arg
+        args = self.req_parser.parse_args(strict=True)
         req_type = args.get(ProcessTextEndpoint.TYPE_ARG, None)
         text = args.get(ProcessTextEndpoint.TEXT_ARG, None)
         # Check we have correct input
