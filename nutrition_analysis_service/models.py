@@ -15,15 +15,17 @@ class NutritionInsightCode(Enum):
     HIGH_CHOLESTEROL = "HIGH_CHOLESTEROL"
 
 
+class NutritionInsightType(IntEnum):
+    POSITIVE = 1
+    WARN_CAUTION = -1
+    WARN_SEVERE = -2
+
+
 class NutritionInsight:
-    class Type(IntEnum):
-        POSITIVE = 1
-        WARN_CAUTION = -1
-        WARN_SEVERE = -2
 
     def __init__(self, code: NutritionInsightCode, insight_type):
         self.code: NutritionInsightCode = code
-        self.insight_type: NutritionInsight.Type = insight_type
+        self.insight_type: NutritionInsightType = insight_type
 
     def to_dict(self):
         return {
@@ -41,7 +43,7 @@ class NutritionInsight:
         if raw_code and raw_type:
             try:
                 code = NutritionInsightCode(raw_code)
-                insight_type = NutritionInsight.Type(raw_type)
+                insight_type = NutritionInsightType(raw_type)
                 return NutritionInsight(code=code, insight_type=insight_type)
             except ValueError:
                 pass
