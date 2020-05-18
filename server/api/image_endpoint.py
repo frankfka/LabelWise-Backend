@@ -4,12 +4,15 @@ from flask import g
 from flask_restful import Resource, reqparse
 
 from server.api.api import analyze
+from server.authentication import authenticate
 from server.models import ErrorResponse
 from server.services import AppServices
 from text_recognition.models import TextRecognitionResult
 
 
 class ProcessImageEndpoint(Resource):
+    method_decorators = [authenticate]
+
     IMAGE_ARG = "b64_img"
     TYPE_ARG = "type"
 
@@ -35,7 +38,7 @@ class ProcessImageEndpoint(Resource):
         """
         Return (req_type, b64_img), or None if we are missing any inputs
         """
-        args = self.req_parser.parse_args(strict=True)
+        args = self.req_parser.parse_args()  # Not using strict to allow for key arg
         req_type = args.get(ProcessImageEndpoint.TYPE_ARG, None)
         b64_img = args.get(ProcessImageEndpoint.IMAGE_ARG, None)
         # Check we have correct input

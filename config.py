@@ -1,28 +1,45 @@
-# TODO: export hard coded config into a yaml file
+import configparser
+import os
+import pathlib
 
 """
 Global store of configuration for the project. It's important that this is in the root
 """
-import os
-import pathlib
 
-REL_PATH_CREDS = "assets/credentials.json"
-REL_PATH_INGREDIENTS_DB = "assets/ingredients_db"
+root_project_path = pathlib.Path(__file__).parent.absolute()
 
-PROJ_PATH = pathlib.Path(__file__).parent.absolute()
+# Get app config object
+config = configparser.ConfigParser()
+config.read(os.path.join(root_project_path, "config.ini"))
+appConfig = config["APP"]
+
+# Get attrs from our app config
+vision_credentials_path = os.path.join(root_project_path, appConfig["VisionCredentialsPath"])
+ingredients_db_path = os.path.join(root_project_path, appConfig["IngredientDatabasePath"])
+api_key = appConfig["ApiKey"]
 
 
 class AppConfig:
+    class WrappedAppConfig:
+
+        def __init__(self):
+            self.vision_cred_filepath = vision_credentials_path
+            self.ingredients_db_dirpath = ingredients_db_path
+            self.api_key = api_key
+
+    __instance = None  # Singleton instance
 
     def __init__(self):
-        # TODO: we can init using a hard coded config file
-        self.vision_cred_filepath = os.path.join(PROJ_PATH, REL_PATH_CREDS)
-        self.ingredients_db_dirpath = os.path.join(PROJ_PATH, REL_PATH_INGREDIENTS_DB)
+        if not AppConfig.__instance:
+            AppConfig.__instance = AppConfig.WrappedAppConfig()
+
+    def __getattr__(self, name):
+        return getattr(self.__instance, name)
 
 
 class AppTestConfig:
 
     def __init__(self):
-        self.vision_cred_filepath = os.path.join(PROJ_PATH, REL_PATH_CREDS)
-        self.ingredients_db_dirpath = os.path.join(PROJ_PATH, REL_PATH_INGREDIENTS_DB)
-        self.test_assets_dir = os.path.join(PROJ_PATH, "test_assets")
+        self.vision_cred_filepath = vision_credentials_path
+        self.ingredients_db_dirpath = ingredients_db_path
+        self.test_assets_dir = os.path.join(root_project_path, "test_assets")

@@ -4,11 +4,14 @@ from flask import g
 from flask_restful import Resource, reqparse
 
 from server.api.api import analyze
+from server.authentication import authenticate
 from server.models import ErrorResponse
 from server.services import AppServices
 
 
 class ProcessTextEndpoint(Resource):
+    method_decorators = [authenticate]
+
     TEXT_ARG = "text"
     TYPE_ARG = "type"
 
@@ -31,7 +34,7 @@ class ProcessTextEndpoint(Resource):
         """
         Return (req_type, text), or None if we are missing any inputs
         """
-        args = self.req_parser.parse_args(strict=True)
+        args = self.req_parser.parse_args()  # Not using strict to allow for key arg
         req_type = args.get(ProcessTextEndpoint.TYPE_ARG, None)
         text = args.get(ProcessTextEndpoint.TEXT_ARG, None)
         # Check we have correct input
