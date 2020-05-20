@@ -1,8 +1,9 @@
 from typing import List
 
-from ingredients.analysis.additive_warnings import get_warnings_for_additive
+from ingredients.analysis.additive_insights import get_insights_for_additive
 from ingredients.analysis.database.additives_db import AdditivesDatabase
-from ingredients.analysis.models import AnalyzedIngredient, IngredientWarning, IngredientWarningCode
+from ingredients.analysis.models import AnalyzedIngredient, IngredientInsight, IngredientInsightCode, \
+    IngredientInsightLevel
 from ingredients.parser.models import ParsedIngredientsResult
 
 
@@ -14,24 +15,24 @@ class IngredientsAnalysisService:
     def analyze(self, parsed_ingredients: ParsedIngredientsResult) -> List[AnalyzedIngredient]:
         """
         Analyzes the parsed ingredients. Currently, this will only return additives found in the database
-        - Annotates with warnings, if applicable
+        - Annotates with insights, if applicable
         """
         analyzed: List[AnalyzedIngredient] = []
         for ingredient_name in parsed_ingredients.parsed_ingredients:
-            warnings = []
+            insights = []
             # Check if it is an added sugar
             if self.db.is_sugar_synonym(ingredient_name):
-                warnings.append(
-                    IngredientWarning(code=IngredientWarningCode.ADDED_SUGAR, level=IngredientWarning.Level.CAUTION)
+                insights.append(
+                    IngredientInsight(code=IngredientInsightCode.ADDED_SUGAR, level=IngredientInsightLevel.WARN_CAUTION)
                 )
             # Analyze additives
             found_additive = self.db.get_additive(ingredient_name)
             if found_additive:
-                warnings += get_warnings_for_additive(found_additive)
+                insights += get_insights_for_additive(found_additive)
             analyzed.append(
                 AnalyzedIngredient(
                     ingredient_name=ingredient_name,
-                    warnings=warnings,
+                    insights=insights,
                     additive_info=found_additive
                 )
             )

@@ -11,7 +11,7 @@ class AdditiveInfo:
         self.cas_id: str = ""
         self.fema_num: str = ""
         self.technical_effs: List[str] = []
-        self.scogs_conclusion: Optional[int] = None
+        self.scogs_conclusion: Optional[int] = None  # TODO: make this an enum
 
     def to_dict(self):
         return {

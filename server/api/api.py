@@ -46,9 +46,9 @@ def __get_analyze_nutrition_status__(parse_result: ParsedNutritionResult) -> Nut
 
 def __analyze_ingredients__(text: str, services: AppServices) -> (dict, int):
     parse_result = services.ingredient_parser.parse(text)
-    analyzed_additives = services.ingredient_analyzer.analyze(parse_result)
+    analyzed_ingredients = services.ingredient_analyzer.analyze(parse_result)
     response = IngredientsAnalysisResponse(
         parsed_ingredients=parse_result,
-        analyzed_additives=analyzed_additives
+        analyzed_ingredients=analyzed_ingredients
     )
     return response.to_dict(), 200

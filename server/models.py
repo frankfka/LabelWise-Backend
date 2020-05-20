@@ -57,12 +57,12 @@ class IngredientsAnalysisResponse:
 
     def __init__(self,
                  parsed_ingredients: ParsedIngredientsResult,
-                 analyzed_additives: List[AnalyzedIngredient]):
+                 analyzed_ingredients: List[AnalyzedIngredient]):
         self.parsed_ingredients = parsed_ingredients
-        self.analyzed_additives = analyzed_additives
+        self.analyzed_ingredients = analyzed_ingredients
 
     def to_dict(self) -> dict:
         return {
             "parsed_ingredients": self.parsed_ingredients.to_dict(),
-            "analyzed_additives": [additive.to_dict() for additive in self.analyzed_additives]
+            "analyzed_ingredients": [additive.to_dict() for additive in self.analyzed_ingredients]
         }
