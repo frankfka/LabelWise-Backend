@@ -28,7 +28,7 @@ class ProcessTextEndpoint(Resource):
         args = self.__get_args_from_req()
         if not args:
             return ErrorResponse("Invalid request, required inputs not provided").to_dict(), 400
-        return analyze(type=args[0], text=args[1], services=self.services)
+        return analyze(analyze_type=args[0], text=args[1], services=self.services)
 
     def __get_args_from_req(self) -> Optional[tuple]:
         """

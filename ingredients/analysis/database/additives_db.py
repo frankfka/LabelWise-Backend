@@ -34,7 +34,7 @@ class AdditivesDatabase:
             with open(os.path.join(data_dir, "sugar_synonyms.json"), "r") as f:
                 sugar_synonyms = json.load(f)
         except Exception as e:
-            logger.error("Error creating additives database", exc_info=True)
+            logger.error(f"Error creating additives database: {e}", exc_info=True)
         self.all_additives: List[AdditiveInfo] = all_additives
         self.sugar_synonyms: List[str] = [__clean_for_comparison__(term) for term in sugar_synonyms]
 

@@ -40,7 +40,7 @@ def check_sugar(nutrition: ParsedNutritionResult) -> Optional[NutritionInsight]:
 
 def check_fiber(nutrition: ParsedNutritionResult) -> Optional[NutritionInsight]:
     result = None
-    if not nutrition.fiber: # This checks that it is non-zero as well, as we divide by 0
+    if not nutrition.fiber:  # This checks that it is non-zero as well, as we divide by 0
         pass
     # Caution warning
     elif nutrition.carbohydrates and nutrition.carbohydrates > 10 and nutrition.carbohydrates / nutrition.fiber > 5:
@@ -58,7 +58,8 @@ def check_sat_fat(nutrition: ParsedNutritionResult) -> Optional[NutritionInsight
     elif nutrition.saturated_fat > 10:
         result = NutritionInsight(code=NutritionInsightCode.HIGH_SAT_FAT, insight_type=NutritionInsightType.WARN_SEVERE)
     elif nutrition.saturated_fat > 5:
-        result = NutritionInsight(code=NutritionInsightCode.HIGH_SAT_FAT, insight_type=NutritionInsightType.WARN_CAUTION)
+        result = NutritionInsight(code=NutritionInsightCode.HIGH_SAT_FAT,
+                                  insight_type=NutritionInsightType.WARN_CAUTION)
     return result
 
 
@@ -67,9 +68,11 @@ def check_cholesterol(nutrition: ParsedNutritionResult) -> Optional[NutritionIns
     if nutrition.cholesterol is None:
         pass
     elif nutrition.cholesterol > 200:
-        result = NutritionInsight(code=NutritionInsightCode.HIGH_CHOLESTEROL, insight_type=NutritionInsightType.WARN_SEVERE)
+        result = NutritionInsight(code=NutritionInsightCode.HIGH_CHOLESTEROL,
+                                  insight_type=NutritionInsightType.WARN_SEVERE)
     elif nutrition.cholesterol > 100:
-        result = NutritionInsight(code=NutritionInsightCode.HIGH_CHOLESTEROL, insight_type=NutritionInsightType.WARN_CAUTION)
+        result = NutritionInsight(code=NutritionInsightCode.HIGH_CHOLESTEROL,
+                                  insight_type=NutritionInsightType.WARN_CAUTION)
     return result
 
 

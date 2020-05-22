@@ -8,6 +8,9 @@ from server.authentication import authenticate
 from server.models import ErrorResponse
 from server.services import AppServices
 from text_recognition.models import TextRecognitionResult
+from utils.logging_util import get_logger
+
+logger = get_logger("ProcessImageEndpoint")
 
 
 class ProcessImageEndpoint(Resource):
@@ -31,8 +34,9 @@ class ProcessImageEndpoint(Resource):
             return ErrorResponse("Invalid request, required inputs not provided").to_dict(), 400
         text_recognition_result: TextRecognitionResult = self.services.text_recognition_client.detect(args[1])
         if text_recognition_result.error or not text_recognition_result.text:
+            logger.warn(f"Could not parse text from image: {text_recognition_result.error}")
             return ErrorResponse(text_recognition_result.error).to_dict(), 500
-        return analyze(text=text_recognition_result.text, type=args[0], services=self.services)
+        return analyze(text=text_recognition_result.text, analyze_type=args[0], services=self.services)
 
     def __get_args_from_req(self) -> Optional[tuple]:
         """

@@ -6,6 +6,8 @@ from ingredients.analysis.database.models import AdditiveInfo
 
 class IngredientInsightCode(Enum):
     NOT_GRAS = "NOT_GRAS"
+    SCOGS_1 = "SCOGS_1"
+    SCOGS_2 = "SCOGS_2"
     SCOGS_3 = "SCOGS_3"
     SCOGS_4 = "SCOGS_4"
     SCOGS_5 = "SCOGS_5"

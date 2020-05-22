@@ -2,20 +2,24 @@ from nutrition_parser.models import ParsedNutritionResult
 from server.models import NutritionAnalysisResponse, IngredientsAnalysisResponse, ErrorResponse, TYPE_NUTRITION, \
     TYPE_INGREDIENTS
 from server.services import AppServices
+from utils.logging_util import get_logger
 
 """
 Central methods that endpoints will call to get the relevant information
 - All methods MUST return a valid tuple of (response_dict, response_code?), no response_code implies a 200
 """
 
+logger = get_logger("APIServer")
 
-def analyze(text: str, type: str, services: AppServices) -> (dict, int):
-    if type == TYPE_NUTRITION:
+
+def analyze(text: str, analyze_type: str, services: AppServices) -> (dict, int):
+    if analyze_type == TYPE_NUTRITION:
         return __analyze_nutrition__(text, services)
-    elif type == TYPE_INGREDIENTS:
+    elif analyze_type == TYPE_INGREDIENTS:
         return __analyze_ingredients__(text, services)
     else:
-        return ErrorResponse("Invalid analysis type"), 400
+        logger.info(f"Invalid request. Given analyze type: {analyze_type}")
+        return ErrorResponse("Invalid analysis type").to_dict(), 400
 
 
 def __analyze_nutrition__(text: str, services: AppServices) -> (dict, int):
