@@ -14,28 +14,33 @@ class IngredientsAnalysisService:
 
     def analyze(self, parsed_ingredients: ParsedIngredientsResult) -> List[AnalyzedIngredient]:
         """
-        Analyzes the parsed ingredients. Currently, this will only return additives found in the database
+        Analyzes the parsed ingredients. Currently, this will only return additives that have been analyzed
+        (i.e. sugar synonym or additive)
         - Annotates with insights, if applicable
         """
         analyzed: List[AnalyzedIngredient] = []
         for ingredient_name in parsed_ingredients.parsed_ingredients:
+            is_analyzed = False
             insights = []
             # Check if it is an added sugar
             if self.db.is_sugar_synonym(ingredient_name):
+                is_analyzed = True
                 insights.append(
                     IngredientInsight(code=IngredientInsightCode.ADDED_SUGAR, level=IngredientInsightLevel.WARN_CAUTION)
                 )
             # Analyze additives
             found_additive = self.db.get_additive(ingredient_name)
             if found_additive:
+                is_analyzed = True
                 insights += get_insights_for_additive(found_additive)
-            analyzed.append(
-                AnalyzedIngredient(
-                    ingredient_name=ingredient_name,
-                    insights=insights,
-                    additive_info=found_additive
+            if is_analyzed:
+                analyzed.append(
+                    AnalyzedIngredient(
+                        ingredient_name=ingredient_name,
+                        insights=insights,
+                        additive_info=found_additive
+                    )
                 )
-            )
         return analyzed
 
 

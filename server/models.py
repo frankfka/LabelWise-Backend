@@ -54,15 +54,21 @@ class IngredientsAnalysisResponse:
     """
     Standardized response for ingredients analysis and parsing
     """
+    class Status(Enum):
+        SUCCESS = "SUCCESS"
+        NON_PARSED = "NON_PARSED"
 
     def __init__(self,
+                 status: Status,
                  parsed_ingredients: ParsedIngredientsResult,
                  analyzed_ingredients: List[AnalyzedIngredient]):
+        self.status = status
         self.parsed_ingredients = parsed_ingredients
         self.analyzed_ingredients = analyzed_ingredients
 
     def to_dict(self) -> dict:
         return {
+            "status": self.status.value,
             "parsed_ingredients": self.parsed_ingredients.to_dict(),
             "analyzed_ingredients": [additive.to_dict() for additive in self.analyzed_ingredients]
         }

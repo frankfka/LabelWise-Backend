@@ -1,3 +1,4 @@
+from ingredients.parser.models import ParsedIngredientsResult
 from nutrition_parser.models import ParsedNutritionResult
 from server.models import NutritionAnalysisResponse, IngredientsAnalysisResponse, ErrorResponse, TYPE_NUTRITION, \
     TYPE_INGREDIENTS
@@ -52,7 +53,15 @@ def __analyze_ingredients__(text: str, services: AppServices) -> (dict, int):
     parse_result = services.ingredient_parser.parse(text)
     analyzed_ingredients = services.ingredient_analyzer.analyze(parse_result)
     response = IngredientsAnalysisResponse(
+        status=__get_analyze_ingredients_status__(parse_result),
         parsed_ingredients=parse_result,
         analyzed_ingredients=analyzed_ingredients
     )
     return response.to_dict(), 200
+
+
+def __get_analyze_ingredients_status__(parse_result: ParsedIngredientsResult) -> IngredientsAnalysisResponse.Status:
+    if len(parse_result.parsed_ingredients) > 0:
+        return IngredientsAnalysisResponse.Status.SUCCESS
+    else:
+        return IngredientsAnalysisResponse.Status.NON_PARSED
