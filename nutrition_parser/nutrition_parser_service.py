@@ -10,6 +10,7 @@ class NutritionalDetailParser:
     """
 
     def parse(self, text: str) -> ParsedNutritionResult:
+        # TODO: more lenient calories/carbs/protein/fat parsing as these are required
         clean_text = preprocess(text)
         result = ParsedNutritionResult(clean_text)
         calories = parser.parse_calories(clean_text)

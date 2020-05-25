@@ -3,7 +3,7 @@ from typing import List
 from ingredients.analysis.additive_insights import get_insights_for_additive
 from ingredients.analysis.database.additives_db import AdditivesDatabase
 from ingredients.analysis.models import AnalyzedIngredient, IngredientInsight, IngredientInsightCode, \
-    IngredientInsightLevel
+    IngredientInsightType
 from ingredients.parser.models import ParsedIngredientsResult
 
 
@@ -26,7 +26,7 @@ class IngredientsAnalysisService:
             if self.db.is_sugar_synonym(ingredient_name):
                 is_analyzed = True
                 insights.append(
-                    IngredientInsight(code=IngredientInsightCode.ADDED_SUGAR, level=IngredientInsightLevel.WARN_CAUTION)
+                    IngredientInsight(code=IngredientInsightCode.ADDED_SUGAR, type=IngredientInsightType.WARN_CAUTION)
                 )
             # Analyze additives
             found_additive = self.db.get_additive(ingredient_name)

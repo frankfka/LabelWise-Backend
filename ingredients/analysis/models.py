@@ -14,7 +14,7 @@ class IngredientInsightCode(Enum):
     ADDED_SUGAR = "ADDED_SUGAR"
 
 
-class IngredientInsightLevel(IntEnum):
+class IngredientInsightType(IntEnum):
     POSITIVE = 1
     WARN_CAUTION = -1
     WARN_SEVERE = -2
@@ -22,14 +22,14 @@ class IngredientInsightLevel(IntEnum):
 
 class IngredientInsight:
 
-    def __init__(self, code: IngredientInsightCode, level: IngredientInsightLevel):
+    def __init__(self, code: IngredientInsightCode, type: IngredientInsightType):
         self.code: IngredientInsightCode = code
-        self.level: IngredientInsightLevel = level
+        self.type: IngredientInsightType = type
 
     def to_dict(self) -> dict:
         return {
             "code": self.code.value,
-            "level": self.level.value
+            "type": self.type.value
         }
 
 

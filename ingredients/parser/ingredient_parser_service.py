@@ -5,6 +5,7 @@ from ingredients.parser.models import ParsedIngredientsResult
 from utils.text_util import preprocess
 
 
+# TODO: This isn't extremely performant, we should compile a database of all possible ingredients and do matching instead
 class IngredientsParser:
     """
     Parses ingredients from OCR text
@@ -12,14 +13,17 @@ class IngredientsParser:
     INGREDIENT_STR_BREAKS = {
         "ingrédien",  # For Canadian labels, signal start of French section
         "manufacture",  # Place of manufacture string
-        "contains"  # Start of allergy information
+        "contains:"  # Start of allergy information
     }
 
     def parse(self, text: str) -> ParsedIngredientsResult:
         clean_text = preprocess(text, remove_accents=False)
+        print(clean_text)
         result = ParsedIngredientsResult(clean_text)
         ingredients_str = self.__get_ingredients_str(clean_text)
+        print(ingredients_str)
         result.parsed_ingredients = self.__get_ingredients(ingredients_str)
+        print(result.parsed_ingredients)
         return result
 
     def __get_ingredients_str(self, clean_text: str) -> str:
@@ -61,7 +65,7 @@ class IngredientsParser:
             ingredient = re.sub(r"[^\w\d]+", " ", ingredient)
             # Normalized spaces
             ingredient_words = ingredient.strip().split()
-            if 0 < len(ingredient_words) < 5:
+            if 0 < len(ingredient_words) < 20:
                 return " ".join(ingredient_words)
             return None
 

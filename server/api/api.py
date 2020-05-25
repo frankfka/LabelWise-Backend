@@ -52,16 +52,17 @@ def __get_analyze_nutrition_status__(parse_result: ParsedNutritionResult) -> Nut
 def __analyze_ingredients__(text: str, services: AppServices) -> (dict, int):
     parse_result = services.ingredient_parser.parse(text)
     analyzed_ingredients = services.ingredient_analyzer.analyze(parse_result)
+    parsed_ingredients = list(parse_result.parsed_ingredients)
     response = IngredientsAnalysisResponse(
-        status=__get_analyze_ingredients_status__(parse_result),
-        parsed_ingredients=parse_result,
+        status=__get_analyze_ingredients_status__(parsed_ingredients),
+        parsed_ingredients=parsed_ingredients,
         analyzed_ingredients=analyzed_ingredients
     )
     return response.to_dict(), 200
 
 
-def __get_analyze_ingredients_status__(parse_result: ParsedIngredientsResult) -> IngredientsAnalysisResponse.Status:
-    if len(parse_result.parsed_ingredients) > 0:
+def __get_analyze_ingredients_status__(parsed_ingredients: [str]) -> IngredientsAnalysisResponse.Status:
+    if len(parsed_ingredients) > 0:
         return IngredientsAnalysisResponse.Status.SUCCESS
     else:
         return IngredientsAnalysisResponse.Status.NON_PARSED

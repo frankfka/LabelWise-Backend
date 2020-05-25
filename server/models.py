@@ -60,7 +60,7 @@ class IngredientsAnalysisResponse:
 
     def __init__(self,
                  status: Status,
-                 parsed_ingredients: ParsedIngredientsResult,
+                 parsed_ingredients: [str],
                  analyzed_ingredients: List[AnalyzedIngredient]):
         self.status = status
         self.parsed_ingredients = parsed_ingredients
@@ -69,6 +69,6 @@ class IngredientsAnalysisResponse:
     def to_dict(self) -> dict:
         return {
             "status": self.status.value,
-            "parsed_ingredients": self.parsed_ingredients.to_dict(),
+            "parsed_ingredients": self.parsed_ingredients,
             "analyzed_ingredients": [additive.to_dict() for additive in self.analyzed_ingredients]
         }

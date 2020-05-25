@@ -15,9 +15,9 @@ def create_app():
         # Health Endpoint
         api.add_resource(Health, '/health')
         # Process Image Endpoint
-        api.add_resource(ProcessImageEndpoint, '/nutrition/image')
+        api.add_resource(ProcessImageEndpoint, '/analyze/image')
         # Process Text Endpoint
-        api.add_resource(ProcessTextEndpoint, '/nutrition/text')
+        api.add_resource(ProcessTextEndpoint, '/analyze/text')
 
     # TODO: Look into parallelism: https://medium.com/@dkhd/handling-multiple-requests-on-flask-60208eacc154
     config = AppConfig()
