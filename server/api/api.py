@@ -37,9 +37,14 @@ def __analyze_nutrition__(text: str, services: AppServices) -> (dict, int):
 
 
 def __get_analyze_nutrition_status__(parse_result: ParsedNutritionResult) -> NutritionAnalysisResponse.Status:
-    if parse_result.calories is None or parse_result.carbohydrates is None \
-            or parse_result.protein is None or parse_result.fat is None:
-        # Insufficient if we can't parse any macros
+    if parse_result.calories is None:
+        # Insufficient if we can't parse calories
+        return NutritionAnalysisResponse.Status.INSUFFICIENT
+    none_null_macros = list(filter(lambda x: x is not None, [parse_result.carbohydrates,
+                                                             parse_result.protein,
+                                                             parse_result.fat]))
+    if len(none_null_macros) < 2:
+        # Insufficient if we can't parse 2/3 macros
         return NutritionAnalysisResponse.Status.INSUFFICIENT
 
     # Determine whether we have parsed all properties
