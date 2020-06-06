@@ -3,5 +3,8 @@
 .gitignore
 __pycache__/
 /setup.cfg
-
+.idea/
+test_assets/
+test_scripts/
+.pytest_cache/
 venv/
