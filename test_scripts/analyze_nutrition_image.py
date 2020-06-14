@@ -14,7 +14,7 @@ def analyze(filepath):
     with open(filepath, "rb") as image_file:
         b64_img = base64.b64encode(image_file.read())
 
-    text_rec_res = text_recog.detect(b64_img)
+    text_rec_res = text_recog.detect_b64(b64_img)
     parse_result = parser_service.parse(text_rec_res.text)
 
     print(parse_result.to_dict())

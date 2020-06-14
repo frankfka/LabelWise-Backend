@@ -13,7 +13,7 @@ class TextRecognitionClient:
     def __init__(self, credentials_filepath):
         self.client = vision.ImageAnnotatorClient.from_service_account_file(credentials_filepath)
 
-    def detect(self, b64_img_content: str) -> TextRecognitionResult:
+    def detect_b64(self, b64_img_content: str) -> TextRecognitionResult:
         """
         Takes as input a Base64 encoded image string
         """
@@ -22,6 +22,9 @@ class TextRecognitionClient:
         except Exception as e:
             logger.error(f"Error decoding Base64 image: {e}", exc_info=True)
             return TextRecognitionResult(error="Invalid Base64 image string")
-        image = vision.types.Image(content=byte_content)
+        return self.detect_bytes(byte_content)
+
+    def detect_bytes(self, byte_img_content: bytes):
+        image = vision.types.Image(content=byte_img_content)
         response = self.client.text_detection(image=image)
         return TextRecognitionResult.from_response(response)

@@ -10,4 +10,4 @@ if __name__ == '__main__':
     # Image File
     img = "/Users/frankjia/Desktop/Programming/FoodScan-Test/test_assets/images_ingredients/ingredients_9.jpg"
     image = get_image(img)
-    print(client.detect(image).text)
+    print(client.detect_b64(image).text)

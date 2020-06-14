@@ -2,6 +2,7 @@ from flask import Flask, g
 from flask_restful import Api
 
 from config import AppConfig
+from server.api.image_upload_endpoint import ProcessImageUploadEndpoint
 from server.health.endpoint import Health, HealthGAE
 from server.api.image_endpoint import ProcessImageEndpoint
 from server.api.text_endpoint import ProcessTextEndpoint
@@ -16,6 +17,8 @@ def create_app():
         api.add_resource(Health, '/health')
         # Process Image Endpoint
         api.add_resource(ProcessImageEndpoint, '/analyze/image')
+        # Process Image Upload Endpoint
+        api.add_resource(ProcessImageUploadEndpoint, '/analyze/image-upload')
         # Process Text Endpoint
         api.add_resource(ProcessTextEndpoint, '/analyze/text')
 
